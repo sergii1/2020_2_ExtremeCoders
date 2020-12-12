@@ -1,4 +1,5 @@
 language: go
+sudo: false
 go:
   - 1.15.2
 os: linux
