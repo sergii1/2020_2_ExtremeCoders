@@ -1,8 +1,9 @@
 package FolderDelivery
 
 import (
-	mailProto "MainApplication/proto/MailService"
-	userProto "MainApplication/proto/UserServise"
+	mailProto "Mailer/MailService/proto"
+	Model "Mailer/MainApplication/internal/Letter/LetterModel"
+	userProto "Mailer/UserService/proto"
 )
 
 func ProtoFolderListResponse(folders []*userProto.FolderNameType) []byte {
@@ -53,7 +54,7 @@ func ProtoLetterListAnswer(pbLetter *mailProto.LetterListResponse) []byte {
 	ans := LetterList{
 		Code:        code,
 		Description: pbLetter.Result.Description,
-		letter:      pbLetter.Letter,
+		Letter:      ProtoToModelMail(pbLetter),
 	}
 	res, _ := ans.MarshalJSON()
 	return res
@@ -66,4 +67,21 @@ func ProtoToModelList(pbLetter []*userProto.FolderNameType) []Folder{
 		folders=append(folders, letterModel)
 	}
 	return folders
+}
+
+func ProtoToModelMail(pbLetter *mailProto.LetterListResponse) []Model.Letter{
+	var letters []Model.Letter
+	for _, pb:=range pbLetter.Letter{
+		letter:=Model.Letter{
+			Sender: pb.Sender,
+			Receiver: pb.Receiver,
+			Text: pb.Text,
+			Theme: pb.Theme,
+			IsWatched: pb.IsWatched,
+			Id: pb.Lid,
+			DateTime: int64(pb.DateTime),
+		}
+		letters=append(letters, letter)
+	}
+	return letters
 }

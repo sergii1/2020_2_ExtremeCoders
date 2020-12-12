@@ -1,24 +1,43 @@
 package main
 
 import (
-	"MainApplication/config"
-	"MainApplication/internal/Folder/FolderDelivery"
-	"MainApplication/internal/Letter/LetterDelivery"
-	"MainApplication/internal/Letter/LetterRepository/LetterService"
-	"MainApplication/internal/Letter/LetterUseCase"
-	"MainApplication/internal/User/UserDelivery"
-	"MainApplication/internal/User/UserRepository/UserMicroservice"
-	"MainApplication/internal/User/UserUseCase"
-	"MainApplication/internal/pkg/middleware"
-	protoFs "MainApplication/proto/FileServise"
-	protoMail "MainApplication/proto/MailService"
-	protoUs "MainApplication/proto/UserServise"
+	protoFs "Mailer/FileService/proto"
+	protoMail "Mailer/MailService/proto"
+	"Mailer/MainApplication/internal/Folder/FolderDelivery"
+	"Mailer/MainApplication/internal/Letter/LetterDelivery"
+	"Mailer/MainApplication/internal/Letter/LetterRepository/LetterService"
+	"Mailer/MainApplication/internal/Letter/LetterUseCase"
+	"Mailer/MainApplication/internal/User/UserDelivery"
+	"Mailer/MainApplication/internal/User/UserRepository/UserMicroservice"
+	"Mailer/MainApplication/internal/User/UserUseCase"
+	"Mailer/MainApplication/internal/pkg/middleware"
+	protoUs "Mailer/UserService/proto"
+	"Mailer/config"
 	"fmt"
+	"github.com/gorilla/mux"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/rs/cors"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"net/http"
-	"github.com/gorilla/mux"
+	"time"
+)
+
+func recordMetrics() {
+	go func() {
+		for {
+			opsProcessed.Inc()
+			time.Sleep(2 * time.Second)
+		}
+	}()
+}
+
+var (
+	opsProcessed = promauto.NewCounter(prometheus.CounterOpts{
+		Name: "myapp_processed_ops_total",
+		Help: "The total number of processed events",
+	})
 )
 
 func main() {
@@ -77,13 +96,15 @@ func main() {
 	mux.HandleFunc("/letter", lDE.SendLetter)
 	mux.HandleFunc("/user/letter/sent", lDE.GetSendLetters)
 	mux.HandleFunc("/user/letter/received", lDE.GetRecvLetters)
+	mux.HandleFunc("/letter/{similar}", lDE.Search)
 	mux.HandleFunc("/watch/letter", lDE.WatchLetter)
+	mux.HandleFunc("/letter/by/{what}/{value}", lDE.GetLetterBy)
 	//get /user/folders/{recived/sended} - список папок
 	mux.HandleFunc("/user/folders/recived", fDe.GetFolderList)
 	mux.HandleFunc("/user/folders/sended", fDe.GetFolderList)
 	//get /user/foders/{recived/sended}/folderName - письма
-	mux.HandleFunc("/user/foders/recived/{folderName:.*}", fDe.GetLettersByFolder)
-	mux.HandleFunc("/user/foders/sended/{folderName:.*}", fDe.GetLettersByFolder)
+	mux.HandleFunc("/user/foders/recived/{folderName}", fDe.GetLettersByFolder)
+	mux.HandleFunc("/user/foders/sended/{folderName}", fDe.GetLettersByFolder)
 	//post /user/folders/{recived/sended}/folderName - добавить папку
 	mux.HandleFunc("/user/folders/recived/folderName", fDe.AddFolder)
 	mux.HandleFunc("/user/folders/sended/folderName", fDe.AddFolder)
@@ -96,6 +117,9 @@ func main() {
 	//delete /user/folders/{recived/sended}/folderName/letter body{letterID:Id} - удалить письмо из папки
 	mux.HandleFunc("/user/folders/recived/folderName/letter  ", fDe.RemoveLetterInFolder)
 	mux.HandleFunc("/user/folders/sended/folderName/letter  ", fDe.RemoveLetterInFolder)
+
+	//mux.Handle("/metrics", promhttp.Handler())
+
 	//delete /user/folders/{recived/sended}/folderName  - удалить папку
 	//mux.HandleFunc("/user/folders/recived/folderName " , fDe.RemoveFolder)
 	//mux.HandleFunc("/user/folders/sended/folderName/letter" , fDe.RemoveFolder)

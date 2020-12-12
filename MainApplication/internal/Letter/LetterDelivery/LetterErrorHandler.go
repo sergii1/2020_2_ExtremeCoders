@@ -1,10 +1,10 @@
 package LetterDelivery
 
 import (
-	"MainApplication/internal/Letter/LetterModel"
-	"MainApplication/internal/Letter/LetterRepository"
-	"MainApplication/internal/errors"
-	"MainApplication/internal/pkg/context"
+	"Mailer/MainApplication/internal/Letter/LetterModel"
+	"Mailer/MainApplication/internal/Letter/LetterRepository"
+	"Mailer/MainApplication/internal/errors"
+	"Mailer/MainApplication/internal/pkg/context"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -45,5 +45,32 @@ func GetLettersError(err error, letters []LetterModel.Letter) []byte {
 	case context.UserFromContextError:
 		returned = errors.GetErrorUnexpectedAns()
 	}
+	return returned
+}
+
+func GetDeleteLetterError(err error) []byte {
+	var returned []byte
+	defer func() {
+		log.WithFields(log.Fields{
+			"RESPONSE": string(returned),
+		}).Info("sent")
+	}()
+	switch err {
+	case nil:
+		returned = errors.GetOk()
+	case LetterRepository.DeleteLetterError:
+		returned = errors.GetDeleteLetterError(err)
+	}
+	return returned
+}
+
+func GetSearchSimError(res string) []byte {
+	var returned []byte
+	defer func() {
+		log.WithFields(log.Fields{
+			"RESPONSE": string(returned),
+		}).Info("sent")
+	}()
+
 	return returned
 }

@@ -1,16 +1,16 @@
 package FolderDelivery
 
 import (
-	"MainApplication/internal/pkg/context"
-	letterService "MainApplication/proto/MailService"
-	mailProto "MainApplication/proto/MailService"
-	userProto "MainApplication/proto/UserServise"
-	userService "MainApplication/proto/UserServise"
+	letterService "Mailer/MailService/proto"
+	mailProto "Mailer/MailService/proto"
+	"Mailer/MainApplication/internal/pkg/context"
+	userProto "Mailer/UserService/proto"
+	userService "Mailer/UserService/proto"
 	"fmt"
+	"github.com/gorilla/mux"
 	"net/http"
 	"strconv"
 	"strings"
-	"github.com/gorilla/mux"
 )
 
 //get /user/folders/{recived/sended} - список папок
@@ -159,13 +159,13 @@ func (d Delivery) AddLetterInFolder(w http.ResponseWriter, r *http.Request) {
 		resp, er = d.lsClient.AddLetterToDir(r.Context(), &mailProto.DirLid{
 			Did:  folderId.Id,
 			Lid:  lid,
-			Type: false,
+			Type: true,
 		})
 	} else {
 		resp, er = d.lsClient.AddLetterToDir(r.Context(), &mailProto.DirLid{
 			Did:  folderId.Id,
 			Lid:  lid,
-			Type: true,
+			Type: false,
 		})
 	}
 	if er != nil {
