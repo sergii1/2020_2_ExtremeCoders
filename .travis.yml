@@ -14,4 +14,4 @@ env:
 before_script:
   - psql -c 'create database maila;' -U postgres
 script:
-  - go build FileService/cmd/main.go
+  - echo hi
