@@ -1,0 +1,6 @@
+#!/bin/bash
+pwd
+cd ../FileService
+pwd
+go generate ./...
+go test -v ./test/tests/...

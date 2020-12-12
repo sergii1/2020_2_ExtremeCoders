@@ -16,8 +16,5 @@ install:
 #before_script:
 #  - psql -c 'create database maila;' -U postgres
 script:
-  - cd FileService
-  - echo hi
-  - ls
-  - go fmt ./...
-  - go test ./test/tests
+  - cd cmd
+  - ./runFileServiceTest.sh
