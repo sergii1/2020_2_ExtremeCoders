@@ -1,16 +1,12 @@
 language: go
-
 go:
   - 1.15.2
-addons:
-  postgresql: "12"
-  apt:
-    packages:
-      - postgresql-10
-      - postgresql-client-10
-env:
-  global:
-    - PGPORT=5433
+os: linux
+dist: focal
+
+services:
+  - postgresql
+
 install:
   # Add Godeps dependencies to GOPATH and PATH
   - export GOPATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace:$GOPATH"
