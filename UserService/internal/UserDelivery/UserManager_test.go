@@ -12,40 +12,41 @@ import (
 
 var (
 	testUser = UserModel.User{
-		Id:      	1,
-		Name: 		"UserName",
-		Surname:  	"UserSurname",
-		Email:      "UserEmail",
-		Password:   "UserPassword",
-		Img:     	"",
+		Id:       1,
+		Name:     "UserName",
+		Surname:  "UserSurname",
+		Email:    "UserEmail",
+		Password: "UserPassword",
+		Img:      "",
 	}
 
 	testSession = UserModel.Session{
-		Id:        	"SessionId",
-		UserId: 	1,
-		User:		&testUser,
+		Id:     "SessionId",
+		UserId: 1,
+		User:   &testUser,
 	}
 
 	testFolder = UserModel.Folder{
-		Uid:		1,
-		Type: 		"FolderType",
-		Name:		"FolderName",
+		Uid:  1,
+		Type: "FolderType",
+		Name: "FolderName",
 	}
 )
+
 func TestUserManager_AddSession(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
 	protoUser := &proto.User{
-		Uid: 		testUser.Id,
-		Name: 		testUser.Name,
-		Surname:  	testUser.Surname,
-		Email:      testUser.Email,
-		Password:   testUser.Password,
+		Uid:      testUser.Id,
+		Name:     testUser.Name,
+		Surname:  testUser.Surname,
+		Email:    testUser.Email,
+		Password: testUser.Password,
 	}
 
-	protoSessionMsg := &proto.AddSessionMsg {
-		Sid: testSession.Id,
+	protoSessionMsg := &proto.AddSessionMsg{
+		Sid:  testSession.Id,
 		User: protoUser,
 	}
 
@@ -69,11 +70,11 @@ func TestUserManager_AddUser(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoUser := &proto.User{
-		Uid: 		testUser.Id,
-		Name: 		testUser.Name,
-		Surname:  	testUser.Surname,
-		Email:      testUser.Email,
-		Password:   testUser.Password,
+		Uid:      testUser.Id,
+		Name:     testUser.Name,
+		Surname:  testUser.Surname,
+		Email:    testUser.Email,
+		Password: testUser.Password,
 	}
 
 	protoNothing := &proto.Nothing{Dummy: true}
@@ -96,7 +97,7 @@ func TestUserManager_CreateFolder(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoFolder := &proto.Folder{
-		Uid: testFolder.Uid,
+		Uid:  testFolder.Uid,
 		Name: testFolder.Name,
 		Type: testFolder.Type,
 	}
@@ -167,7 +168,7 @@ func TestUserManager_GetFolderId(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoFolder := &proto.Folder{
-		Uid: testFolder.Uid,
+		Uid:  testFolder.Uid,
 		Name: testFolder.Name,
 		Type: testFolder.Type,
 	}
@@ -194,7 +195,7 @@ func TestUserManager_GetFoldersList(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoFolderUidType := &proto.FolderUidType{
-		Uid: testFolder.Uid,
+		Uid:  testFolder.Uid,
 		Type: testFolder.Type,
 	}
 
@@ -249,11 +250,11 @@ func TestUserManager_GetUserByEmail(t *testing.T) {
 	}
 
 	protoUser := &proto.User{
-		Uid: 		testUser.Id,
-		Name: 		testUser.Name,
-		Surname:  	testUser.Surname,
-		Email:      testUser.Email,
-		Password:   testUser.Password,
+		Uid:      testUser.Id,
+		Name:     testUser.Name,
+		Surname:  testUser.Surname,
+		Email:    testUser.Email,
+		Password: testUser.Password,
 	}
 
 	ctx := context.Background()
@@ -278,11 +279,11 @@ func TestUserManager_GetUserByUID(t *testing.T) {
 	}
 
 	protoUser := &proto.User{
-		Uid: 		testUser.Id,
-		Name: 		testUser.Name,
-		Surname:  	testUser.Surname,
-		Email:      testUser.Email,
-		Password:   testUser.Password,
+		Uid:      testUser.Id,
+		Name:     testUser.Name,
+		Surname:  testUser.Surname,
+		Email:    testUser.Email,
+		Password: testUser.Password,
 	}
 
 	ctx := context.Background()
@@ -305,7 +306,6 @@ func TestUserManager_IsEmailExists(t *testing.T) {
 	protoEmail := &proto.Email{
 		Email: testUser.Email,
 	}
-
 
 	protoNothing := &proto.Nothing{Dummy: true}
 
@@ -352,7 +352,7 @@ func TestUserManager_RemoveFolder(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoFolder := &proto.Folder{
-		Uid: testFolder.Uid,
+		Uid:  testFolder.Uid,
 		Name: testFolder.Name,
 		Type: testFolder.Type,
 	}
@@ -404,8 +404,8 @@ func TestUserManager_RenameFolder(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoRenameFolderMsg := &proto.RenameFolderMsg{
-		Uid: testFolder.Id,
-		Type: testFolder.Type,
+		Uid:     testFolder.Id,
+		Type:    testFolder.Type,
 		OldName: testFolder.Name,
 		NewName: testFolder.Name,
 	}
@@ -430,16 +430,16 @@ func TestUserManager_UpdateProfile(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoUser := &proto.User{
-		Uid: 		testUser.Id,
-		Name: 		testUser.Name,
-		Surname:  	testUser.Surname,
-		Email:      testUser.Email,
-		Password:   testUser.Password,
+		Uid:      testUser.Id,
+		Name:     testUser.Name,
+		Surname:  testUser.Surname,
+		Email:    testUser.Email,
+		Password: testUser.Password,
 	}
 
 	protoUpdateProfileMsg := &proto.UpdateProfileMsg{
 		NewUser: protoUser,
-		Email: testUser.Email,
+		Email:   testUser.Email,
 	}
 
 	protoNothing := &proto.Nothing{Dummy: true}

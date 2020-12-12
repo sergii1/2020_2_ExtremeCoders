@@ -2,11 +2,11 @@ package main
 
 import (
 	"Mailer/UserService/Postgres"
-	"Mailer/config"
 	"Mailer/UserService/internal/UserDelivery"
 	"Mailer/UserService/internal/UserRepository/UserPostgres"
 	"Mailer/UserService/internal/UserUseCase"
 	proto "Mailer/UserService/proto"
+	"Mailer/config"
 	"fmt"
 	"google.golang.org/grpc"
 	"log"

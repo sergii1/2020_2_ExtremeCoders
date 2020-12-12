@@ -29,19 +29,19 @@ func New(usecase LetterUseCase.LetterUseCase) Interface {
 	return delivery{Uc: usecase}
 }
 
-func (de delivery)DeleteLetter(w http.ResponseWriter, r *http.Request){
+func (de delivery) DeleteLetter(w http.ResponseWriter, r *http.Request) {
 	id := context.GetStrFormValueSafety(r, "id")
-	intID,err:=strconv.Atoi(id)
-	if err!=nil{
+	intID, err := strconv.Atoi(id)
+	if err != nil {
 		w.Write(GetDeleteLetterError(err))
 		return
 	}
-	err=de.Uc.DeleteLetter(uint64(intID))
+	err = de.Uc.DeleteLetter(uint64(intID))
 	w.Write(GetDeleteLetterError(err))
 }
 
 func (de delivery) SendLetter(w http.ResponseWriter, r *http.Request) {
-	if r.Method==http.MethodDelete{
+	if r.Method == http.MethodDelete {
 		de.DeleteLetter(w, r)
 	}
 	if r.Method != http.MethodPost {
@@ -66,9 +66,9 @@ func (de delivery) SendLetter(w http.ResponseWriter, r *http.Request) {
 func (de delivery) GetRecvLetters(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	limit := vars["limit"]
-	offset:=vars["offset"]
-	intLim, err:=strconv.Atoi(limit)
-	intOff, err:=strconv.Atoi(offset)
+	offset := vars["offset"]
+	intLim, err := strconv.Atoi(limit)
+	intOff, err := strconv.Atoi(offset)
 
 	er, user := context.GetUserFromCtx(r.Context())
 	if er != nil {
@@ -95,7 +95,7 @@ func (de delivery) WatchLetter(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	id := context.GetStrFormValueSafety(r, "id")
-	num, _:=strconv.Atoi(id)
+	num, _ := strconv.Atoi(id)
 	de.Uc.WatchLetter(uint64(num))
 }
 
@@ -106,7 +106,7 @@ func (de delivery) Search(w http.ResponseWriter, r *http.Request) {
 	}
 	vars := mux.Vars(r)
 	sim := vars["similar"]
-	searchRes:=de.Uc.FindSim(sim)
+	searchRes := de.Uc.FindSim(sim)
 	w.Write([]byte(searchRes))
 }
 
@@ -117,7 +117,7 @@ func (de delivery) GetLetterBy(w http.ResponseWriter, r *http.Request) {
 	}
 	vars := mux.Vars(r)
 	what := vars["what"]
-	val:=vars["value"]
-	err, letters:=de.Uc.GetLetterBy(what, val)
+	val := vars["value"]
+	err, letters := de.Uc.GetLetterBy(what, val)
 	w.Write(GetLettersError(err, letters))
 }

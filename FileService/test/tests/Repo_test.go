@@ -37,7 +37,7 @@ func TestSaveAvatarRepo(t *testing.T) {
 		t.Log("TestGetDefaultAvatarRepo ")
 	}
 
-	err = fs.SaveAvatar(&proto.Avatar{Email: "selicium", FileName: "img.jpeg",Content: nil})
+	err = fs.SaveAvatar(&proto.Avatar{Email: "selicium", FileName: "img.jpeg", Content: nil})
 	if err == nil {
 		t.Log("TestGetDefaultAvatarRepo ")
 	}

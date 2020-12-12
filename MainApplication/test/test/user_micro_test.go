@@ -15,15 +15,15 @@ func TestIsEmailExist(t *testing.T) {
 	defer ctrl.Finish()
 
 	user := UserModel.User{
-		Id: 123,
-		Name: "Dellvin",
-		Surname: "Black",
-		Email: "dellvin.black@gmail.com",
+		Id:       123,
+		Name:     "Dellvin",
+		Surname:  "Black",
+		Email:    "dellvin.black@gmail.com",
 		Password: "1538",
 	}
 	mockLetter := mock.NewMockUserServiceClient(ctrl)
 	ctx := context.Background()
-	mockLetter.EXPECT().IsEmailExists(ctx, &userService.Email{ Email: user.Email}).Times(1)
+	mockLetter.EXPECT().IsEmailExists(ctx, &userService.Email{Email: user.Email}).Times(1)
 	uc := UserMicroservice.New(mockLetter)
 
 	uc.IsEmailExists(user.Email)
@@ -34,19 +34,19 @@ func TestAddUser(t *testing.T) {
 	defer ctrl.Finish()
 
 	user := UserModel.User{
-		Id: 123,
-		Name: "Dellvin",
-		Surname: "Black",
-		Email: "dellvin.black@gmail.com",
+		Id:       123,
+		Name:     "Dellvin",
+		Surname:  "Black",
+		Email:    "dellvin.black@gmail.com",
 		Password: "1538",
 	}
 	mockLetter := mock.NewMockUserServiceClient(ctrl)
 	ctx := context.Background()
-	mockLetter.EXPECT().AddUser(ctx, &userService.User{ Email:    user.Email,
+	mockLetter.EXPECT().AddUser(ctx, &userService.User{Email: user.Email,
 		Name:     user.Name,
 		Surname:  user.Surname,
 		Password: user.Password,
-		Uid:      user.Id,}).Times(1)
+		Uid:      user.Id}).Times(1)
 	uc := UserMicroservice.New(mockLetter)
 
 	uc.AddUser(&user)
@@ -57,10 +57,10 @@ func TestAddSession(t *testing.T) {
 	defer ctrl.Finish()
 
 	user := UserModel.User{
-		Id: 123,
-		Name: "Dellvin",
-		Surname: "Black",
-		Email: "dellvin.black@gmail.com",
+		Id:       123,
+		Name:     "Dellvin",
+		Surname:  "Black",
+		Email:    "dellvin.black@gmail.com",
 		Password: "1538",
 	}
 	mockLetter := mock.NewMockUserServiceClient(ctrl)
@@ -72,7 +72,7 @@ func TestAddSession(t *testing.T) {
 		Password: user.Password,
 		Uid:      user.Id,
 	}
-	sid:="asjhdflashdbfp"
+	sid := "asjhdflashdbfp"
 	msg := userService.AddSessionMsg{
 		Sid:  sid,
 		User: &u,
@@ -80,7 +80,7 @@ func TestAddSession(t *testing.T) {
 	mockLetter.EXPECT().AddSession(ctx, &msg).Times(1)
 	uc := UserMicroservice.New(mockLetter)
 
-	uc.AddSession(sid, user.Id,&user)
+	uc.AddSession(sid, user.Id, &user)
 }
 
 func TestGetUserByEmail(t *testing.T) {
@@ -88,17 +88,17 @@ func TestGetUserByEmail(t *testing.T) {
 	defer ctrl.Finish()
 
 	user := UserModel.User{
-		Id: 123,
-		Name: "Dellvin",
-		Surname: "Black",
-		Email: "dellvin.black@gmail.com",
+		Id:       123,
+		Name:     "Dellvin",
+		Surname:  "Black",
+		Email:    "dellvin.black@gmail.com",
 		Password: "1538",
 	}
 	userSer := userService.User{
-		Uid: 123,
-		Name: "Dellvin",
-		Surname: "Black",
-		Email: "dellvin.black@gmail.com",
+		Uid:      123,
+		Name:     "Dellvin",
+		Surname:  "Black",
+		Email:    "dellvin.black@gmail.com",
 		Password: "1538",
 	}
 	mockLetter := mock.NewMockUserServiceClient(ctrl)
@@ -114,17 +114,17 @@ func TestGetUserByUID(t *testing.T) {
 	defer ctrl.Finish()
 
 	user := UserModel.User{
-		Id: 123,
-		Name: "Dellvin",
-		Surname: "Black",
-		Email: "dellvin.black@gmail.com",
+		Id:       123,
+		Name:     "Dellvin",
+		Surname:  "Black",
+		Email:    "dellvin.black@gmail.com",
 		Password: "1538",
 	}
 	userSer := userService.User{
-		Uid: 123,
-		Name: "Dellvin",
-		Surname: "Black",
-		Email: "dellvin.black@gmail.com",
+		Uid:      123,
+		Name:     "Dellvin",
+		Surname:  "Black",
+		Email:    "dellvin.black@gmail.com",
 		Password: "1538",
 	}
 	mockLetter := mock.NewMockUserServiceClient(ctrl)
@@ -139,11 +139,11 @@ func TestIsOkSession(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	var uid userService.Uid
-	uid.Uid=1876543
+	uid.Uid = 1876543
 
 	mockLetter := mock.NewMockUserServiceClient(ctrl)
 	ctx := context.Background()
-	sid:="asdfaweyurgoaeyf"
+	sid := "asdfaweyurgoaeyf"
 	mockLetter.EXPECT().IsOkSession(ctx, &userService.Sid{Sid: string(sid)}).Return(&uid, nil)
 	uc := UserMicroservice.New(mockLetter)
 	uc.IsOkSession(string(sid))
@@ -154,10 +154,10 @@ func TestUpdateProfile(t *testing.T) {
 	defer ctrl.Finish()
 
 	user := UserModel.User{
-		Id: 123,
-		Name: "Dellvin",
-		Surname: "Black",
-		Email: "dellvin.black@gmail.com",
+		Id:       123,
+		Name:     "Dellvin",
+		Surname:  "Black",
+		Email:    "dellvin.black@gmail.com",
 		Password: "1538",
 	}
 	u := userService.User{
@@ -174,7 +174,7 @@ func TestUpdateProfile(t *testing.T) {
 	ctx := context.Background()
 
 	msg := userService.UpdateProfileMsg{
-		Email:  user.Email,
+		Email:   user.Email,
 		NewUser: &u,
 	}
 	mockLetter.EXPECT().UpdateProfile(ctx, &msg).Return(&nothing, nil)
@@ -188,8 +188,8 @@ func TestRemoveSession(t *testing.T) {
 	defer ctrl.Finish()
 
 	var uid userService.Uid
-	uid.Uid=1876543
-	sid:="alshdifbasdf"
+	uid.Uid = 1876543
+	sid := "alshdifbasdf"
 	mockLetter := mock.NewMockUserServiceClient(ctrl)
 	ctx := context.Background()
 
@@ -199,15 +199,14 @@ func TestRemoveSession(t *testing.T) {
 	uc.RemoveSession(sid)
 }
 
-
 func TestGetSessionByUID(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
 	var uid userService.Uid
-	uid.Uid=1876543
-	var sid= userService.Sid{
-		Sid :"alshdifbasdf",
+	uid.Uid = 1876543
+	var sid = userService.Sid{
+		Sid: "alshdifbasdf",
 	}
 
 	mockLetter := mock.NewMockUserServiceClient(ctrl)

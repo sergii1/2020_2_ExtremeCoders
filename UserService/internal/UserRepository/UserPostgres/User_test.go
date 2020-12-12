@@ -25,24 +25,24 @@ func (r MockResult) RowsReturned() int {
 
 var (
 	testUser = UserModel.User{
-		Id:      	1,
-		Name: 		"UserName",
-		Surname:  	"UserSurname",
-		Email:      "UserEmail",
-		Password:   "UserPassword",
-		Img:     	"UserImg",
+		Id:       1,
+		Name:     "UserName",
+		Surname:  "UserSurname",
+		Email:    "UserEmail",
+		Password: "UserPassword",
+		Img:      "UserImg",
 	}
 
 	testSession = UserModel.Session{
-		Id:        	"SessionId",
-		UserId: 	1,
-		User:		&testUser,
+		Id:     "SessionId",
+		UserId: 1,
+		User:   &testUser,
 	}
 
 	testFolder = UserModel.Folder{
-		Uid:		1,
-		Type: 		"FolderType",
-		Name:		"FolderName",
+		Uid:  1,
+		Type: "FolderType",
+		Name: "FolderName",
 	}
 )
 
@@ -60,7 +60,7 @@ func NewRepo(t *testing.T) *dataBase {
 }
 
 func TestDataBase_AddSession(t *testing.T) {
-	mockRes:= MockResult{}
+	mockRes := MockResult{}
 
 	db := new(mocks.DB)
 	query := new(ormmocks.Query)
@@ -75,7 +75,7 @@ func TestDataBase_AddSession(t *testing.T) {
 }
 
 func TestDataBase_AddUser(t *testing.T) {
-	mockRes:= MockResult{}
+	mockRes := MockResult{}
 
 	db := new(mocks.DB)
 	query := new(ormmocks.Query)

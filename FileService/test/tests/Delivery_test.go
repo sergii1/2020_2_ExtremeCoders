@@ -16,7 +16,7 @@ func TestSaveFilesDelivery(t *testing.T) {
 	mockUseCase := mock.NewMockInterface(ctrl)
 	mockUseCase.EXPECT().SaveFiles(files).Times(1)
 	de := Delivery.NewFileManager(mockUseCase)
-	ctx:=context.Background()
+	ctx := context.Background()
 	de.SaveFiles(ctx, files)
 }
 
@@ -27,7 +27,7 @@ func TestGetFilesDelivery(t *testing.T) {
 	mockUseCase := mock.NewMockInterface(ctrl)
 	mockUseCase.EXPECT().GetFiles(lid).Times(1)
 	de := Delivery.NewFileManager(mockUseCase)
-	ctx:=context.Background()
+	ctx := context.Background()
 	de.GetFiles(ctx, lid)
 }
 
@@ -38,7 +38,7 @@ func TestGetAvatarDelivery(t *testing.T) {
 	mockUseCase := mock.NewMockInterface(ctrl)
 	mockUseCase.EXPECT().GetAvatar(user).Times(1)
 	de := Delivery.NewFileManager(mockUseCase)
-	ctx:=context.Background()
+	ctx := context.Background()
 	de.GetAvatar(ctx, user)
 }
 
@@ -49,7 +49,6 @@ func TestSetAvatarDelivery(t *testing.T) {
 	mockUseCase := mock.NewMockInterface(ctrl)
 	mockUseCase.EXPECT().SaveAvatar(avatar).Times(1)
 	de := Delivery.NewFileManager(mockUseCase)
-	ctx:=context.Background()
+	ctx := context.Background()
 	de.SetAvatar(ctx, avatar)
 }
-

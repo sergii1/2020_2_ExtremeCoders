@@ -1,11 +1,11 @@
 package GetLetters
 
 import (
+	send "Mailer/SmtpService/internal/SendLetters"
 	"fmt"
 	"github.com/emersion/go-smtp"
 	"io"
 	"io/ioutil"
-	send "Mailer/SmtpService/internal/SendLetters"
 )
 
 // The Backend implements SMTP server methods.

@@ -49,8 +49,7 @@ func TestSaveMailasdf(t *testing.T) {
 	defer ctrl.Finish()
 	mockLetter := mock.NewMockLetterDB(ctrl)
 	l := LetterModel.Letter{}
-	mockLetter.EXPECT().SaveMail(l).Return( nil)
+	mockLetter.EXPECT().SaveMail(l).Return(nil)
 	uc := LetterUseCase.New(mockLetter)
 	uc.SaveLetter(&l)
 }
-

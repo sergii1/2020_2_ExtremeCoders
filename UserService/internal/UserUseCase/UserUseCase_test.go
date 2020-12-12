@@ -11,24 +11,24 @@ import (
 
 var (
 	testUser = UserModel.User{
-		Id:      	1,
-		Name: 		"UserName",
-		Surname:  	"UserSurname",
-		Email:      "UserEmail",
-		Password:   "UserPassword",
-		Img:     	"",
+		Id:       1,
+		Name:     "UserName",
+		Surname:  "UserSurname",
+		Email:    "UserEmail",
+		Password: "UserPassword",
+		Img:      "",
 	}
 
 	testSession = UserModel.Session{
-		Id:        	"SessionId",
-		UserId: 	1,
-		User:		&testUser,
+		Id:     "SessionId",
+		UserId: 1,
+		User:   &testUser,
 	}
 
 	testFolder = UserModel.Folder{
-		Uid:		1,
-		Type: 		"FolderType",
-		Name:		"FolderName",
+		Uid:  1,
+		Type: "FolderType",
+		Name: "FolderName",
 	}
 )
 
@@ -37,15 +37,15 @@ func TestUseCase_AddSession(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoUser := &proto.User{
-		Uid: 		testUser.Id,
-		Name: 		testUser.Name,
-		Surname:  	testUser.Surname,
-		Email:      testUser.Email,
-		Password:   testUser.Password,
+		Uid:      testUser.Id,
+		Name:     testUser.Name,
+		Surname:  testUser.Surname,
+		Email:    testUser.Email,
+		Password: testUser.Password,
 	}
 
-	protoSessionMsg := &proto.AddSessionMsg {
-		Sid: testSession.Id,
+	protoSessionMsg := &proto.AddSessionMsg{
+		Sid:  testSession.Id,
 		User: protoUser,
 	}
 
@@ -68,11 +68,11 @@ func TestUseCase_AddUser(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoUser := &proto.User{
-		Uid: 		testUser.Id,
-		Name: 		testUser.Name,
-		Surname:  	testUser.Surname,
-		Email:      testUser.Email,
-		Password:   testUser.Password,
+		Uid:      testUser.Id,
+		Name:     testUser.Name,
+		Surname:  testUser.Surname,
+		Email:    testUser.Email,
+		Password: testUser.Password,
 	}
 
 	protoNothing := &proto.Nothing{Dummy: true}
@@ -94,9 +94,9 @@ func TestUseCase_CreateFolder(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoFolder := &proto.Folder{
-		Type: 		testFolder.Type,
-		Uid: 		testFolder.Uid,
-		Name: 		testFolder.Name,
+		Type: testFolder.Type,
+		Uid:  testFolder.Uid,
+		Name: testFolder.Name,
 	}
 
 	protoNothing := &proto.Nothing{Dummy: true}
@@ -156,9 +156,9 @@ func TestUseCase_GetFolderId(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoFolder := &proto.Folder{
-		Type: 		testFolder.Type,
-		Uid: 		testFolder.Uid,
-		Name: 		testFolder.Name,
+		Type: testFolder.Type,
+		Uid:  testFolder.Uid,
+		Name: testFolder.Name,
 	}
 
 	protoFolderId := &proto.FolderId{
@@ -181,8 +181,8 @@ func TestUseCase_GetFoldersList(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	protoFolderUidType:= &proto.FolderUidType{
-		Uid: testFolder.Uid,
+	protoFolderUidType := &proto.FolderUidType{
+		Uid:  testFolder.Uid,
 		Type: testFolder.Type,
 	}
 
@@ -229,13 +229,12 @@ func TestUseCase_GetUserByEmail(t *testing.T) {
 	}
 
 	protoUser := &proto.User{
-		Uid: 		testUser.Id,
-		Name: 		testUser.Name,
-		Surname:  	testUser.Surname,
-		Email:      testUser.Email,
-		Password:   testUser.Password,
+		Uid:      testUser.Id,
+		Name:     testUser.Name,
+		Surname:  testUser.Surname,
+		Email:    testUser.Email,
+		Password: testUser.Password,
 	}
-
 
 	mockUserDB := mock.NewMockUserDB(ctrl)
 
@@ -256,11 +255,11 @@ func TestUseCase_GetUserByUID(t *testing.T) {
 	protoUid := &proto.Uid{Uid: uint64(1)}
 
 	protoUser := &proto.User{
-		Uid: 		testUser.Id,
-		Name: 		testUser.Name,
-		Surname:  	testUser.Surname,
-		Email:      testUser.Email,
-		Password:   testUser.Password,
+		Uid:      testUser.Id,
+		Name:     testUser.Name,
+		Surname:  testUser.Surname,
+		Email:    testUser.Email,
+		Password: testUser.Password,
 	}
 
 	mockUserDB := mock.NewMockUserDB(ctrl)
@@ -320,9 +319,9 @@ func TestUseCase_RemoveFolder(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoFolder := &proto.Folder{
-		Type: 		testFolder.Type,
-		Uid: 		testFolder.Uid,
-		Name: 		testFolder.Name,
+		Type: testFolder.Type,
+		Uid:  testFolder.Uid,
+		Name: testFolder.Name,
 	}
 
 	protoFolderId := &proto.FolderId{
@@ -365,8 +364,8 @@ func TestUseCase_RenameFolder(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoRenameFolderMsg := &proto.RenameFolderMsg{
-		Uid: testFolder.Uid,
-		Type: testFolder.Type,
+		Uid:     testFolder.Uid,
+		Type:    testFolder.Type,
 		OldName: testFolder.Name,
 		NewName: testFolder.Name,
 	}
@@ -393,15 +392,15 @@ func TestUseCase_UpdateProfile(t *testing.T) {
 	defer ctrl.Finish()
 
 	protoUser := &proto.User{
-		Uid: 		testUser.Id,
-		Name: 		testUser.Name,
-		Surname:  	testUser.Surname,
-		Email:      testUser.Email,
-		Password:   testUser.Password,
+		Uid:      testUser.Id,
+		Name:     testUser.Name,
+		Surname:  testUser.Surname,
+		Email:    testUser.Email,
+		Password: testUser.Password,
 	}
 
-	protoUpdateProfileMsg := &proto.UpdateProfileMsg {
-		Email: testUser.Email,
+	protoUpdateProfileMsg := &proto.UpdateProfileMsg{
+		Email:   testUser.Email,
 		NewUser: protoUser,
 	}
 

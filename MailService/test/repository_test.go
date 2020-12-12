@@ -1,8 +1,8 @@
 package test
 
 import (
-	"Mailer/MailService/internal/UseCase"
 	"Mailer/MailService/internal/Model"
+	"Mailer/MailService/internal/UseCase"
 	mock "Mailer/MailService/test/mock_LetterRepository"
 	"github.com/golang/mock/gomock"
 	"testing"
@@ -54,7 +54,6 @@ func TestWatchLetter(t *testing.T) {
 	uc.WatchLetter(0)
 }
 
-
 func TestGetLettersSend(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
@@ -65,7 +64,6 @@ func TestGetLettersSend(t *testing.T) {
 
 	uc.GetLettersSend(Letter.Receiver)
 }
-
 
 func TestGetLettersRecv(t *testing.T) {
 	ctrl := gomock.NewController(t)

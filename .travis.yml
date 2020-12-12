@@ -2,7 +2,6 @@ language: go
 
 go:
   - 1.15.2
-  - CI
 addons:
   postgresql: "12"
   apt:
@@ -14,3 +13,5 @@ env:
     - PGPORT=5433
 before_script:
   - psql -c 'create database maila;' -U postgres
+script:
+  - go build FileService/cmd/main.go
