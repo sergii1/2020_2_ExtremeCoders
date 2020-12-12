@@ -1,15 +1,15 @@
 package test
 
 import (
-	"FileService/internal/File/Repository/FileSystem"
-	proto "FileService/proto"
+	"Mailer/FileService/internal/File/Repository/FileSystem"
+	proto "Mailer/FileService/proto"
 	"testing"
 )
 
 func TestGetAvatarRepo(t *testing.T) {
 	fs := FileSystem.New()
 	_, err := fs.GetAvatar(&proto.User{})
-	if err != nil {
+	if err == nil {
 		t.Log("TestGetAvatarRepo ", err.Error())
 	}
 }
