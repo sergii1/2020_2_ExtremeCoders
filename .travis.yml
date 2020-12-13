@@ -17,7 +17,6 @@ install:
 #  - psql -c 'create database maila;' -U postgres
 before_script:
   - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.33.0
-  - go mod vendor
 script:
   - cd cmd
   - ./runFileServiceTest.sh
