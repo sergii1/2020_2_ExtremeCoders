@@ -3,8 +3,8 @@ package test
 import (
 	"Mailer/MainApplication/internal/User/UserModel"
 	"Mailer/MainApplication/internal/User/UserRepository/UserMicroservice"
-	userService "Mailer/MainApplication/proto/UserServise"
 	mock "Mailer/MainApplication/test/mock_UserProto"
+	userService "Mailer/UserService/proto"
 	"context"
 	"github.com/golang/mock/gomock"
 	"testing"
@@ -26,7 +26,7 @@ func TestIsEmailExist(t *testing.T) {
 	mockLetter.EXPECT().IsEmailExists(ctx, &userService.Email{Email: user.Email}).Times(1)
 	uc := UserMicroservice.New(mockLetter)
 
-	uc.IsEmailExists(user.Email)
+	_ = uc.IsEmailExists(user.Email)
 }
 
 func TestAddUser(t *testing.T) {
@@ -49,7 +49,7 @@ func TestAddUser(t *testing.T) {
 		Uid:      user.Id}).Times(1)
 	uc := UserMicroservice.New(mockLetter)
 
-	uc.AddUser(&user)
+	_ = uc.AddUser(&user)
 }
 
 func TestAddSession(t *testing.T) {
@@ -80,7 +80,7 @@ func TestAddSession(t *testing.T) {
 	mockLetter.EXPECT().AddSession(ctx, &msg).Times(1)
 	uc := UserMicroservice.New(mockLetter)
 
-	uc.AddSession(sid, user.Id, &user)
+	_ = uc.AddSession(sid, user.Id, &user)
 }
 
 func TestGetUserByEmail(t *testing.T) {
@@ -106,7 +106,7 @@ func TestGetUserByEmail(t *testing.T) {
 	mockLetter.EXPECT().GetUserByEmail(ctx, &userService.Email{Email: user.Email}).Return(&userSer, nil)
 	uc := UserMicroservice.New(mockLetter)
 
-	uc.GetUserByEmail(user.Email)
+	_, _ = uc.GetUserByEmail(user.Email)
 }
 
 func TestGetUserByUID(t *testing.T) {
@@ -132,7 +132,7 @@ func TestGetUserByUID(t *testing.T) {
 	mockLetter.EXPECT().GetUserByUID(ctx, &userService.Uid{Uid: user.Id}).Return(&userSer, nil)
 	uc := UserMicroservice.New(mockLetter)
 
-	uc.GetUserByUID(user.Id)
+	_, _ = uc.GetUserByUID(user.Id)
 }
 
 func TestIsOkSession(t *testing.T) {
@@ -146,7 +146,7 @@ func TestIsOkSession(t *testing.T) {
 	sid := "asdfaweyurgoaeyf"
 	mockLetter.EXPECT().IsOkSession(ctx, &userService.Sid{Sid: string(sid)}).Return(&uid, nil)
 	uc := UserMicroservice.New(mockLetter)
-	uc.IsOkSession(string(sid))
+	_, _ = uc.IsOkSession(string(sid))
 }
 
 func TestUpdateProfile(t *testing.T) {
@@ -180,7 +180,7 @@ func TestUpdateProfile(t *testing.T) {
 	mockLetter.EXPECT().UpdateProfile(ctx, &msg).Return(&nothing, nil)
 	uc := UserMicroservice.New(mockLetter)
 
-	uc.UpdateProfile(user, user.Email)
+	_ = uc.UpdateProfile(user, user.Email)
 }
 
 func TestRemoveSession(t *testing.T) {
@@ -196,7 +196,7 @@ func TestRemoveSession(t *testing.T) {
 	mockLetter.EXPECT().RemoveSession(ctx, &userService.Sid{Sid: sid}).Return(&uid, nil)
 	uc := UserMicroservice.New(mockLetter)
 
-	uc.RemoveSession(sid)
+	_, _ = uc.RemoveSession(sid)
 }
 
 func TestGetSessionByUID(t *testing.T) {
@@ -215,5 +215,5 @@ func TestGetSessionByUID(t *testing.T) {
 	mockLetter.EXPECT().GetSessionByUID(ctx, &userService.Uid{Uid: uid.Uid}).Return(&sid, nil)
 	uc := UserMicroservice.New(mockLetter)
 
-	uc.GetSessionByUID(uid.Uid)
+	_, _ = uc.GetSessionByUID(uid.Uid)
 }

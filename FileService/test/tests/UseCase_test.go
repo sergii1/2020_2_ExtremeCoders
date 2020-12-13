@@ -17,7 +17,7 @@ func TestGetAvatar(t *testing.T) {
 	mockRepo.EXPECT().GetAvatar(user).Return(&proto.Avatar{}, errors.New("sdf"))
 	mockRepo.EXPECT().GetDefaultAvatar().Times(1)
 	uc := UseCase.New(mockRepo)
-	uc.GetAvatar(user)
+	_, _ = uc.GetAvatar(user)
 }
 
 func TestGetFiles(t *testing.T) {
@@ -27,7 +27,7 @@ func TestGetFiles(t *testing.T) {
 	mockRepo := mock.NewMockInterface(ctrl)
 	mockRepo.EXPECT().GetFiles(lid)
 	uc := UseCase.New(mockRepo)
-	uc.GetFiles(lid)
+	_, _ = uc.GetFiles(lid)
 }
 
 func TestSaveAvatar(t *testing.T) {
@@ -37,7 +37,7 @@ func TestSaveAvatar(t *testing.T) {
 	mockRepo := mock.NewMockInterface(ctrl)
 	mockRepo.EXPECT().SaveAvatar(avatar).Times(1)
 	uc := UseCase.New(mockRepo)
-	uc.SaveAvatar(avatar)
+	_ = uc.SaveAvatar(avatar)
 }
 
 func Test(t *testing.T) {
@@ -47,5 +47,5 @@ func Test(t *testing.T) {
 	mockRepo := mock.NewMockInterface(ctrl)
 	mockRepo.EXPECT().SaveFiles(file).Times(1)
 	uc := UseCase.New(mockRepo)
-	uc.SaveFiles(file)
+	_ = uc.SaveFiles(file)
 }

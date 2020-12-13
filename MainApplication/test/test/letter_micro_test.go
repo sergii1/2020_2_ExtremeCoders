@@ -1,9 +1,9 @@
 package test
 
 import (
+	letterService "Mailer/MailService/proto"
 	Model "Mailer/MainApplication/internal/Letter/LetterModel"
 	"Mailer/MainApplication/internal/Letter/LetterRepository/LetterService"
-	letterService "Mailer/MainApplication/proto/MailService"
 	mock "Mailer/MainApplication/test/mock_MailServiceProto"
 	"context"
 	"github.com/golang/mock/gomock"
@@ -24,10 +24,6 @@ var letter = letterService.Letter{
 
 var response = letterService.Response{Description: "ok", Ok: true}
 
-var lr = letterService.LetterResponse{
-	Letter: &letter,
-	Result: &response,
-}
 
 var letterListResponse letterService.LetterListResponse
 
@@ -35,11 +31,6 @@ func TestWatchLetter(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	letter := letterService.Letter{
-		Lid:      123,
-		Sender:   "Dellvin",
-		Receiver: "Black",
-	}
 	var lr letterService.LetterResponse
 	lr.Letter = &letter
 	mockLetter := mock.NewMockLetterServiceClient(ctrl)
@@ -50,7 +41,7 @@ func TestWatchLetter(t *testing.T) {
 	mockLetter.EXPECT().WatchedLetter(ctx, &letterService.Lid{Lid: uint64(lid)}).Return(&lr, nil)
 	uc := LetterService.New(mockLetter)
 
-	uc.WatchLetter(lid)
+	_, _ = uc.WatchLetter(lid)
 }
 
 func TestSaveMail(t *testing.T) {
@@ -63,7 +54,7 @@ func TestSaveMail(t *testing.T) {
 	mockLetter.EXPECT().SaveLetter(ctx, &letter).Return(&response, nil)
 	uc := LetterService.New(mockLetter)
 
-	uc.SaveMail(lettermodel)
+	_ = uc.SaveMail(lettermodel)
 }
 
 func TestGetReceivedLetters(t *testing.T) {
@@ -79,7 +70,7 @@ func TestGetReceivedLetters(t *testing.T) {
 	mockLetter.EXPECT().GetLettersRecv(ctx, &letterService.Email{Email: email}).Return(&letterListResponse, nil)
 	uc := LetterService.New(mockLetter)
 
-	uc.GetReceivedLetters(email)
+	_, _ = uc.GetReceivedLetters(email, 0, 0)
 }
 
 func TestGetSendedLettersewr(t *testing.T) {
@@ -95,7 +86,7 @@ func TestGetSendedLettersewr(t *testing.T) {
 	mockLetter.EXPECT().GetLettersSend(ctx, &letterService.Email{Email: email}).Return(&letterListResponse, nil)
 	uc := LetterService.New(mockLetter)
 
-	uc.GetSendedLetters(email)
+	_, _ = uc.GetSendedLetters(email)
 }
 
 func TestGetReceivedLettersDir(t *testing.T) {
@@ -111,7 +102,7 @@ func TestGetReceivedLettersDir(t *testing.T) {
 	mockLetter.EXPECT().GetLettersByDirRecv(ctx, &letterService.DirName{DirName: uint64(dir)}).Return(&letterListResponse, nil)
 	uc := LetterService.New(mockLetter)
 
-	uc.GetReceivedLettersDir(uint64(dir))
+	_, _ = uc.GetReceivedLettersDir(uint64(dir))
 }
 
 func TestGetSendedLettersDir(t *testing.T) {
@@ -127,5 +118,5 @@ func TestGetSendedLettersDir(t *testing.T) {
 	mockLetter.EXPECT().GetLettersByDirSend(ctx, &letterService.DirName{DirName: uint64(dir)}).Return(&letterListResponse, nil)
 	uc := LetterService.New(mockLetter)
 
-	uc.GetSendedLettersDir(uint64(dir))
+	_, _ = uc.GetSendedLettersDir(uint64(dir))
 }

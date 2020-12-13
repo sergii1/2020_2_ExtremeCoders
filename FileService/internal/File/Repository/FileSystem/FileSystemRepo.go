@@ -46,7 +46,7 @@ func (fsr Repo) SaveAvatar(avatar *fileProto.Avatar) error {
 		fmt.Println("ERROR", err)
 		return repo.SaveAvatarError
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	_, err = f.Write(avatar.Content)
 	if err != nil {
 		fmt.Println("ERROR", err)

@@ -17,7 +17,7 @@ func TestSaveFilesDelivery(t *testing.T) {
 	mockUseCase.EXPECT().SaveFiles(files).Times(1)
 	de := Delivery.NewFileManager(mockUseCase)
 	ctx := context.Background()
-	de.SaveFiles(ctx, files)
+	_, _ = de.SaveFiles(ctx, files)
 }
 
 func TestGetFilesDelivery(t *testing.T) {
@@ -28,7 +28,7 @@ func TestGetFilesDelivery(t *testing.T) {
 	mockUseCase.EXPECT().GetFiles(lid).Times(1)
 	de := Delivery.NewFileManager(mockUseCase)
 	ctx := context.Background()
-	de.GetFiles(ctx, lid)
+	_, _ = de.GetFiles(ctx, lid)
 }
 
 func TestGetAvatarDelivery(t *testing.T) {
@@ -39,7 +39,7 @@ func TestGetAvatarDelivery(t *testing.T) {
 	mockUseCase.EXPECT().GetAvatar(user).Times(1)
 	de := Delivery.NewFileManager(mockUseCase)
 	ctx := context.Background()
-	de.GetAvatar(ctx, user)
+	_, _ = de.GetAvatar(ctx, user)
 }
 
 func TestSetAvatarDelivery(t *testing.T) {
@@ -50,5 +50,5 @@ func TestSetAvatarDelivery(t *testing.T) {
 	mockUseCase.EXPECT().SaveAvatar(avatar).Times(1)
 	de := Delivery.NewFileManager(mockUseCase)
 	ctx := context.Background()
-	de.SetAvatar(ctx, avatar)
+	_, _ = de.SetAvatar(ctx, avatar)
 }

@@ -21,10 +21,10 @@ func main() {
 
 	server := grpc.NewServer()
 	db := Postgres.DataBase{}
-	db.Init(config.DbUser, config.DbPassword, config.DbDB)
+	_, _ = db.Init(config.DbUser, config.DbPassword, config.DbDB)
 	repo := LetterPostgres.New(db.DB)
 	uc := UseCase.New(repo)
 	letterProto.RegisterLetterServiceServer(server, Delivery.New(uc))
 	fmt.Println("starting File at :8083")
-	server.Serve(lis)
+	_ = server.Serve(lis)
 }

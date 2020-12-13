@@ -36,7 +36,7 @@ func (s *Session) Mail(from string, opts smtp.MailOptions) error {
 		}
 	}()
 	fmt.Println("EMail from:", from, opts.Auth)
-	go send.SendAnswer2(from)
+	go func() {_ = send.SendAnswer2(from)}()
 
 	return nil
 }

@@ -28,8 +28,7 @@ func TestSignIn(t *testing.T) {
 		Email:    "dellvin.black@gmail.com",
 		Password: "$2a$14$OzJS/7LjHhx8U8vh6/hl5uPx3X2OGhrRHNYalvAHXaF9Ko8Uooef.",
 	}
-	var sid []rune
-	sid = []rune("VLbutPK_aMA_zVi4QP_EL_7KLXl8Uxwg")
+	sid := []rune("VLbutPK_aMA_zVi4QP_EL_7KLXl8Uxwg")
 	mockLetter := mock.NewMockUserDB(ctrl)
 	mockLetter.EXPECT().GetUserByEmail(user.Email).Return(&userex, nil)
 	mockLetter.EXPECT().GenerateSID().Return(sid, nil)
@@ -65,7 +64,7 @@ func TestSignInByEmail(t *testing.T) {
 	mockLetter.EXPECT().GetUserByEmail(user.Email).Return(&userex, UserRepository.CantGetUserByEmail)
 	uc := UserUseCase.New(mockLetter)
 
-	uc.SignIn(user)
+	_, _ = uc.SignIn(user)
 
 }
 
@@ -87,14 +86,13 @@ func TestSignInGenSid(t *testing.T) {
 		Email:    "dellvin.black@gmail.com",
 		Password: "$2a$14$OzJS/7LjHhx8U8vh6/hl5uPx3X2OGhrRHNYalvAHXaF9Ko8Uooef.",
 	}
-	var sid []rune
-	sid = []rune("VLbutPK_aMA_zVi4QP_EL_7KLXl8Uxwg")
+	sid := []rune("VLbutPK_aMA_zVi4QP_EL_7KLXl8Uxwg")
 	mockLetter := mock.NewMockUserDB(ctrl)
 	mockLetter.EXPECT().GetUserByEmail(user.Email).Return(&userex, nil)
 	mockLetter.EXPECT().GenerateSID().Return(sid, UserRepository.InvalidSession)
 	uc := UserUseCase.New(mockLetter)
 
-	uc.SignIn(user)
+	_, _ = uc.SignIn(user)
 }
 
 func TestSignInSessByUID(t *testing.T) {
@@ -115,14 +113,13 @@ func TestSignInSessByUID(t *testing.T) {
 		Email:    "dellvin.black@gmail.com",
 		Password: "$2a$14$OzJS/7LjHhx8U8vh6/hl5uPx3X2OGhrRHNYalvAHXaF9Ko8Uooef.",
 	}
-	var sid []rune
-	sid = []rune("VLbutPK_aMA_zVi4QP_EL_7KLXl8Uxwg")
+	sid := []rune("VLbutPK_aMA_zVi4QP_EL_7KLXl8Uxwg")
 	mockLetter := mock.NewMockUserDB(ctrl)
 	mockLetter.EXPECT().GetUserByEmail(user.Email).Return(&userex, nil)
 	mockLetter.EXPECT().GenerateSID().Return(sid, nil)
 	mockLetter.EXPECT().GetSessionByUID(user.Id).Return(string(sid), UserRepository.InvalidSession)
 	uc := UserUseCase.New(mockLetter)
-	uc.SignIn(user)
+	_, _ = uc.SignIn(user)
 }
 
 func TestSignInRemSession(t *testing.T) {
@@ -143,15 +140,14 @@ func TestSignInRemSession(t *testing.T) {
 		Email:    "dellvin.black@gmail.com",
 		Password: "$2a$14$OzJS/7LjHhx8U8vh6/hl5uPx3X2OGhrRHNYalvAHXaF9Ko8Uooef.",
 	}
-	var sid []rune
-	sid = []rune("VLbutPK_aMA_zVi4QP_EL_7KLXl8Uxwg")
+	sid := []rune("VLbutPK_aMA_zVi4QP_EL_7KLXl8Uxwg")
 	mockLetter := mock.NewMockUserDB(ctrl)
 	mockLetter.EXPECT().GetUserByEmail(user.Email).Return(&userex, nil)
 	mockLetter.EXPECT().GenerateSID().Return(sid, nil)
 	mockLetter.EXPECT().GetSessionByUID(user.Id).Return(string(sid), nil)
 	mockLetter.EXPECT().RemoveSession(string(sid)).Return(UserRepository.RemoveSessionError, uint64(0))
 	uc := UserUseCase.New(mockLetter)
-	uc.SignIn(user)
+	_, _ = uc.SignIn(user)
 }
 
 func TestSignInAddSess(t *testing.T) {
@@ -172,8 +168,7 @@ func TestSignInAddSess(t *testing.T) {
 		Email:    "dellvin.black@gmail.com",
 		Password: "$2a$14$OzJS/7LjHhx8U8vh6/hl5uPx3X2OGhrRHNYalvAHXaF9Ko8Uooef.",
 	}
-	var sid []rune
-	sid = []rune("VLbutPK_aMA_zVi4QP_EL_7KLXl8Uxwg")
+	sid := []rune("VLbutPK_aMA_zVi4QP_EL_7KLXl8Uxwg")
 	mockLetter := mock.NewMockUserDB(ctrl)
 	mockLetter.EXPECT().GetUserByEmail(user.Email).Return(&userex, nil)
 	mockLetter.EXPECT().GenerateSID().Return(sid, nil)
@@ -181,5 +176,5 @@ func TestSignInAddSess(t *testing.T) {
 	mockLetter.EXPECT().RemoveSession(string(sid)).Return(nil, uint64(0))
 	mockLetter.EXPECT().AddSession(string(sid), user.Id, &userex).Return(UserRepository.CantAddSession)
 	uc := UserUseCase.New(mockLetter)
-	uc.SignIn(user)
+	_, _ = uc.SignIn(user)
 }
