@@ -1,4 +1,5 @@
 #!/bin/bash
+#chmod ugo+x runMailServiceTest.sh
 pwd
 cd ../MailService
 pwd

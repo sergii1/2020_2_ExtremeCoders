@@ -1,7 +1,7 @@
 #!/bin/bash
-#chmod ugo+x runMainApplicationTest.sh
+#chmod ugo+x runUserServiceTest.sh
 pwd
-cd ../MainApplication
+cd ../UserService
 pwd
 go generate ./internal/...
 go test -v ./test/test/...

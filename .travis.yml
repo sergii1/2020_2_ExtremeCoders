@@ -29,5 +29,5 @@ script:
   - ./runFileServiceTest.sh
   - ./runMailServiceTest.sh
   - ./runMainApplicationTest.sh
-  - cd ..
-  - which golangci-lint
+  - ./runUserServiceTest.sh
+
