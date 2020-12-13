@@ -14,7 +14,7 @@ addons:
       - postgresql-client
 env:
   global:
-    - PGPORT=5433
+    - PGPORT=5432
 
 install:
   # Add Godeps dependencies to GOPATH and PATH
