@@ -4,22 +4,24 @@ go:
   - 1.15.2
 os: linux
 dist: focal
-#
-#services:
-#  - postgresql
-#
+
+services:
+  - postgresql
+
 install:
   # Add Godeps dependencies to GOPATH and PATH
   - go get -u -t -v ./...
 #  - export GOPATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace:$GOPATH"
 #  - export PATH="${TRAVIS_BUILD_DIR}/Godeps/_workspace/bin:$PATH"
-#before_script:
-#  - psql -c 'create database maila;' -U postgres
+before_script:
+  - psql -c 'create database maila;' -U postgres
 before_install: "curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin $GOLANGCI_LINT_VERSION"
 script:
   - go mod vendor
   - golangci-lint run
   - cd cmd
   - ./runFileServiceTest.sh
+  - ./runMailServiceTest.sh
+  - ./runMainApplicationTest.sh
   - cd ..
   - which golangci-lint

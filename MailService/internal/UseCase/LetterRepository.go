@@ -25,7 +25,7 @@ type Interface interface {
 	GetLetterBy(what string, val string) (error, []Model.Letter)
 }
 
-//go:generate mockgen -source=./LetterRepository.go -destination=./RepositoryMock.go
+//go:generate mockgen -source=./LetterRepository.go -destination=../../test/mock_LetterUseCase/RepositoryMock.go
 
 func New(repo Repository.LetterDB) Interface {
 	return UseCase{re: repo}

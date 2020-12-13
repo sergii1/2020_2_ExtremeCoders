@@ -1,0 +1,6 @@
+#!/bin/bash
+pwd
+cd ../MainApplication
+pwd
+go generate ./internal/...
+go test -v ./test/test/...

@@ -1,0 +1,6 @@
+#!/bin/bash
+pwd
+cd ../MailService
+pwd
+go generate ./internal/...
+go test -v ./test/...
