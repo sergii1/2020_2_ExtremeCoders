@@ -21,4 +21,4 @@ script:
   - cd cmd
   - ./runFileServiceTest.sh
   - cd ..
-  - golangci-lint -v run
+  - which golangci-lint
