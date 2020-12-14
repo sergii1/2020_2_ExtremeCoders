@@ -27,7 +27,7 @@ before_deploy:
   - .travis/set-up-ssh
 script:
 - go mod vendor
-- golangci-lint rungi
+- golangci-lint rung
 - cd cmd
 - "./runFileServiceTest.sh"
 - "./runMailServiceTest.sh"
