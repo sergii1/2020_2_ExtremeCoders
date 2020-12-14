@@ -111,8 +111,16 @@ issues:
   # regular expressions become case sensitive.
   exclude-case-sensitive: false
   # The list of ids of default excludes to include or disable. By default it's empty.
+  exclude-rules:
+    # Exclude some linters from running on tests files.
+    - path: ./.*
+      linters:
+        - govet
+        - ineffassign
+        - staticcheck
+        - deadcode
+        - unused
 
-  # Show only new issues: if there are unstaged changes or untracked files,
   # only those changes are analyzed, else only changes in HEAD~ are analyzed.
   # It's a super-useful option for integration of golangci-lint into existing
   # large codebase. It's not practical to fix all existing issues at the moment
