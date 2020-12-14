@@ -24,7 +24,7 @@ before_install:
   | sh -s -- -b $(go env GOPATH)/bin $GOLANGCI_LINT_VERSION
 
 before_deploy:
-  - .travis/set-up-ssh
+  - .ssh/config
 script:
 - go mod vendor
 - golangci-lint run
@@ -39,4 +39,4 @@ deploy:
   provider: script
   script: ./cmd/runAllServices.sh
   on:
-    branch: CI
+    branch: CI, main
