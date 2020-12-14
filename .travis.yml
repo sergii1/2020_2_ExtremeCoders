@@ -34,6 +34,7 @@ script:
 - "./runMainApplicationTest.sh"
 - "./runUserServiceTest.sh"
 
+
 deploy:
   skip_cleanup: false
   provider: script
