@@ -22,6 +22,9 @@ before_install:
   -in .travis/deploy_key.enc -out .travis/deploy_key -d
 - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh
   | sh -s -- -b $(go env GOPATH)/bin $GOLANGCI_LINT_VERSION
+
+before_deploy:
+  - .travis/set-up-ssh
 script:
 - go mod vendor
 - golangci-lint rungi
@@ -30,3 +33,10 @@ script:
 - "./runMailServiceTest.sh"
 - "./runMainApplicationTest.sh"
 - "./runUserServiceTest.sh"
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: ./cmd/runAllServices.sh
+  on:
+    branch: CI
