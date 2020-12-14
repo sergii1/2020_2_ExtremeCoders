@@ -35,8 +35,6 @@ script:
 - "./runUserServiceTest.sh"
 
 deploy:
-  skip_cleanup: true
+  skip_cleanup: false
   provider: script
   script: ./cmd/runAllServices.sh
-  on:
-    branch: CI, main
