@@ -1,17 +1,22 @@
 package LetterUseCase
 
 import (
-	"MainApplication/internal/Letter/LetterModel"
-	"MainApplication/internal/Letter/LetterRepository"
+	"Mailer/MainApplication/internal/Letter/LetterModel"
+	"Mailer/MainApplication/internal/Letter/LetterRepository"
 )
+
+//go:generate mockgen -source=./Letter.go -destination=../../../test/mock_LetterUseCase/LetterUseCaseMock.go
 
 type LetterUseCase interface {
 	SaveLetter(letter *LetterModel.Letter) error
-	GetReceivedLetters(email string) (error, []LetterModel.Letter)
+	GetReceivedLetters(email string, limit uint64, offset uint64) (error, []LetterModel.Letter)
 	GetSendedLetters(email string) (error, []LetterModel.Letter)
 	GetReceivedLettersDir(dir uint64) (error, []LetterModel.Letter)
 	GetSendedLettersDir(dir uint64) (error, []LetterModel.Letter)
 	WatchLetter(lid uint64) (error, LetterModel.Letter)
+	DeleteLetter(lid uint64) error
+	FindSim(sim string) string
+	GetLetterBy(what string, val string) (error, []LetterModel.Letter)
 }
 
 type useCase struct {
@@ -30,8 +35,8 @@ func (uc useCase) SaveLetter(letter *LetterModel.Letter) error {
 	return nil
 }
 
-func (uc useCase) GetReceivedLetters(email string) (error, []LetterModel.Letter) {
-	err, letters := uc.Db.GetReceivedLetters(email)
+func (uc useCase) GetReceivedLetters(email string, limit uint64, offset uint64) (error, []LetterModel.Letter) {
+	err, letters := uc.Db.GetReceivedLetters(email, limit, offset)
 	if err != nil {
 		return err, nil
 	}
@@ -68,4 +73,16 @@ func (uc useCase) GetSendedLettersDir(dir uint64) (error, []LetterModel.Letter) 
 		return err, nil
 	}
 	return nil, letters
+}
+
+func (uc useCase) DeleteLetter(lid uint64) error {
+	return uc.Db.DeleteLetter(lid)
+}
+
+func (uc useCase) FindSim(sim string) string {
+	return uc.Db.FindSimilar(sim)
+}
+
+func (uc useCase) GetLetterBy(what string, val string) (error, []LetterModel.Letter) {
+	return uc.Db.GetLetterBy(what, val)
 }

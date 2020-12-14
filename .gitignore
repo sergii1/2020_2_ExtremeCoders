@@ -4,4 +4,5 @@ MainApplication/go.sum
 .idea/workspace.xml
 ../go.sum
 /CleanArch
-*.jpeg
+/.travis/deploy_key
+/.travis/deploy_key.pub

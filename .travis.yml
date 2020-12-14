@@ -1,0 +1,40 @@
+language: go
+sudo: false
+go:
+- 1.15.2
+os: linux
+dist: focal
+services:
+- postgresql
+addons:
+  postgresql: '10'
+  apt:
+    packages:
+    - postgresql
+    - postgresql-client
+install:
+- go get -u -t -v ./...
+before_script:
+- sudo service postgresql start
+- psql -c 'create database maila;' -U postgres
+before_install:
+- openssl aes-256-cbc -K $encrypted_f627e8db6689_key -iv $encrypted_f627e8db6689_iv
+  -in .travis/deploy_key.enc -out .travis/deploy_key -d
+- curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh
+  | sh -s -- -b $(go env GOPATH)/bin $GOLANGCI_LINT_VERSION
+
+before_deploy:
+  - .ssh/config
+script:
+- go mod vendor
+- golangci-lint run
+- cd cmd
+- "./runFileServiceTest.sh"
+- "./runMailServiceTest.sh"
+- "./runMainApplicationTest.sh"
+- "./runUserServiceTest.sh"
+
+deploy:
+  skip_cleanup: false
+  provider: script
+  script: ./cmd/runAllServices.sh

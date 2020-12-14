@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"MainApplication/internal/User/UserRepository"
-	"MainApplication/internal/pkg/context"
+	"Mailer/MainApplication/internal/User/UserRepository"
+	"Mailer/MainApplication/internal/pkg/context"
 	"errors"
 	log "github.com/sirupsen/logrus"
 	"net/http"
@@ -93,7 +93,7 @@ func (a AuthMiddleware) Auth(next http.Handler) http.Handler {
 				return
 			}
 			//либо злоумышленник либо что-то пошло совсем не так...
-			w.Write(authError(csrfError))
+			_, _ = w.Write(authError(csrfError))
 			log.WithFields(log.Fields{
 				"RECOVERED": csrfError,
 			}).Error("got")

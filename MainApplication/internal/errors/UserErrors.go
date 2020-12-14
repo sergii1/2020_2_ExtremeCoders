@@ -1,11 +1,9 @@
 package errors
 
 import (
-	"MainApplication/internal/User/UserModel"
+	"Mailer/MainApplication/internal/User/UserModel"
 	"fmt"
 )
-
-
 
 func GetErrorBadJsonAns() []byte {
 	err := &AnswerGet{
@@ -93,6 +91,15 @@ func GetOkAns(cocky string) []byte {
 		Code:        200,
 		Description: "ok",
 		sid:         cocky,
+	}
+	ans, _ := ok.MarshalJSON()
+	return ans
+}
+
+func GetOk() []byte {
+	ok := &AnswerGet{
+		Code:        200,
+		Description: "ok",
 	}
 	ans, _ := ok.MarshalJSON()
 	return ans

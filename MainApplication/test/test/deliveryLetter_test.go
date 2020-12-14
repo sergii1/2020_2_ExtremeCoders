@@ -1,17 +1,5 @@
 package test
-//
-//import (
-//
-//	"MainApplication/internal/Letter/LetterDelivery"
-//	"MainApplication/internal/errors"
-//	mock "MainApplication/test/mock_LetterUseCase"
-//
-//	"fmt"
-//	"github.com/golang/mock/gomock"
-//	"net/http"
-//	"testing"
-//)
-//
+
 //type MyWriter struct {
 //	Str []byte
 //}
@@ -32,7 +20,7 @@ package test
 //func (writer MyWriter) WriteHeader(statusCode int) {
 //	fmt.Println("implement me")
 //}
-//
+
 //func TestSendLetter(t *testing.T) {
 //
 //	ctrl := gomock.NewController(t)
@@ -59,7 +47,7 @@ package test
 //	mockUseCase.EXPECT().GetReceivedLetters(nil).MaxTimes(0)
 //	r = http.Request{Method: "POST"}
 //	uc.GetRecvLetters(&writer, &r)
-//	if string(writer.Str) != string(errors.GetErrorUnexpectedAns()) {
+//	if string(writer.Str)!=string(errors.GetErrorUnexpectedAns()){
 //		t.Errorf("Expected error is  " + string(errors.GetErrorUnexpectedAns()))
 //	}
 //
@@ -67,7 +55,7 @@ package test
 //	mockUseCase.EXPECT().GetSendedLetters(nil).MaxTimes(0)
 //	r = http.Request{Method: "POST"}
 //	uc.GetSendLetters(&writer, &r)
-//	if string(writer.Str) != string(errors.GetErrorUnexpectedAns()) {
+//	if string(writer.Str)!=string(errors.GetErrorUnexpectedAns()){
 //		t.Errorf("Expected error is  " + string(errors.GetErrorUnexpectedAns()))
 //	}
 //}

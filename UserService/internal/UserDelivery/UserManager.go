@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 )
-import proto "UserService/proto"
-import "UserService/internal/UserUseCase"
+import proto "Mailer/UserService/proto"
+import "Mailer/UserService/internal/UserUseCase"
 
 type UserManager struct {
 	useCase UserUseCase.Interface
@@ -16,7 +16,7 @@ func New(uc UserUseCase.Interface) proto.UserServiceServer {
 }
 
 func (um UserManager) GetFoldersList(ctx context.Context, uid *proto.FolderUidType) (*proto.FolderList, error) {
-	folder, err:=um.useCase.GetFoldersList(uid)
+	folder, err := um.useCase.GetFoldersList(uid)
 	return folder, err
 }
 

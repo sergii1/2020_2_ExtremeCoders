@@ -1,7 +1,7 @@
 package UserRepository
 
 import (
-	"MainApplication/internal/User/UserModel"
+	"Mailer/MainApplication/internal/User/UserModel"
 	"errors"
 )
 
@@ -16,6 +16,8 @@ var CantGetUserOnUpdate = errors.New("Get user on update error!")
 var CantUpdateUser = errors.New("User update error!")
 var RemoveSessionError = errors.New("Could not remove session!")
 var GetSessionError = errors.New("Could not get session!")
+
+//go:generate mockgen -source=./DataBaseRequests.go -destination=../../../test/mock_UserRepository/RepositoryMock.go
 
 type UserDB interface {
 	IsEmailExists(string) error

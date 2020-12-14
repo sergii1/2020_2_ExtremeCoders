@@ -1,8 +1,8 @@
 package FileSystem
 
 import (
-	repo "FileService/internal/File/Repository"
-	fileProto "FileService/proto"
+	repo "Mailer/FileService/internal/File/Repository"
+	fileProto "Mailer/FileService/proto"
 	"bytes"
 	"fmt"
 	"image"
@@ -16,10 +16,9 @@ type Repo struct {
 }
 
 func New() repo.Interface {
-	err := os.Chdir("..")
 	curPath, _ := os.Getwd()
 	fmt.Println("CUR PATh", curPath)
-	err = os.Chdir(curPath + "/web/static")
+	err := os.Chdir(curPath + "/web/static")
 	if err != nil {
 		fmt.Println("ERROR", err)
 	}
@@ -46,7 +45,7 @@ func (fsr Repo) SaveAvatar(avatar *fileProto.Avatar) error {
 		fmt.Println("ERROR", err)
 		return repo.SaveAvatarError
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	_, err = f.Write(avatar.Content)
 	if err != nil {
 		fmt.Println("ERROR", err)

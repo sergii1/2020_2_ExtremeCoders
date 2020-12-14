@@ -1,10 +1,10 @@
 package test
 
 import (
-	"MainApplication/internal/User/UserModel"
-	"MainApplication/internal/User/UserRepository"
-	"MainApplication/internal/User/UserUseCase"
-	mock "MainApplication/test/mock_UserRepository"
+	"Mailer/MainApplication/internal/User/UserModel"
+	"Mailer/MainApplication/internal/User/UserRepository"
+	"Mailer/MainApplication/internal/User/UserUseCase"
+	mock "Mailer/MainApplication/test/mock_UserRepository"
 	"github.com/golang/mock/gomock"
 	"testing"
 )
@@ -23,7 +23,7 @@ func TestProfile(t *testing.T) {
 	mockLetter := mock.NewMockUserDB(ctrl)
 	mockLetter.EXPECT().UpdateProfile(user, user.Email).Return(nil)
 	uc := UserUseCase.New(mockLetter)
-	uc.Profile(user)
+	_ = uc.Profile(user)
 }
 
 func TestProfileUpUser(t *testing.T) {
@@ -40,5 +40,5 @@ func TestProfileUpUser(t *testing.T) {
 	mockLetter := mock.NewMockUserDB(ctrl)
 	mockLetter.EXPECT().UpdateProfile(user, user.Email).Return(UserRepository.CantUpdateUser)
 	uc := UserUseCase.New(mockLetter)
-	uc.Profile(user)
+	_ = uc.Profile(user)
 }
