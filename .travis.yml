@@ -24,7 +24,7 @@ before_install:
   | sh -s -- -b $(go env GOPATH)/bin $GOLANGCI_LINT_VERSION
 
 before_deploy:
-  - .ssh/config
+  - ./.ssh/config
 script:
 - go mod vendor
 - golangci-lint run
