@@ -38,4 +38,7 @@ script:
 deploy:
   skip_cleanup: false
   provider: script
-  script: ./cmd/runAllServices.sh
+  script: bash ./cmd/runAllServices.sh
+  on:
+    branch: CI
+
