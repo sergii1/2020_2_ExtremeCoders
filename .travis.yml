@@ -24,6 +24,7 @@ before_install:
   | sh -s -- -b $(go env GOPATH)/bin $GOLANGCI_LINT_VERSION
 
 before_deploy:
+  - echo before Deploy
   - pwd
   - ./.ssh/config.ssh
 script:
@@ -39,7 +40,9 @@ script:
 deploy:
   skip_cleanup: false
   provider: script
-  script: bash ./cmd/runAllServices.sh
-  on:
+  script:
+    - echo deploy
+    - pwd
+    on:
     branch: CI
 
