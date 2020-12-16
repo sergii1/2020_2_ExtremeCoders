@@ -24,15 +24,16 @@ before_install:
   | sh -s -- -b $(go env GOPATH)/bin $GOLANGCI_LINT_VERSION
 
 before_deploy:
-  - ./.ssh/config
+  - pwd
+  - ./.ssh/config.ssh
 script:
 - go mod vendor
 - golangci-lint run
 - cd cmd
 - "./runFileServiceTest.sh"
-- "./runMailServiceTest.sh"
-- "./runMainApplicationTest.sh"
-- "./runUserServiceTest.sh"
+#- "./runMailServiceTest.sh"
+#- "./runMainApplicationTest.sh"
+#- "./runUserServiceTest.sh"
 
 
 deploy:
