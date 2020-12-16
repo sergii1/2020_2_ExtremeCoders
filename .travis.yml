@@ -40,9 +40,7 @@ script:
 deploy:
   skip_cleanup: false
   provider: script
-  script:
-    - echo deploy
-    - pwd
+  script: echo deploy; pwd
     on:
     branch: CI
 
