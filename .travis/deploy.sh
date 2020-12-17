@@ -2,7 +2,7 @@
 #chmod ugo+x deploy.sh
 echo DEPLLLOY
 pwd
-ssh ubuntu@95.163.209.195 -o StrictHostKeyChecking=no
+ssh ubuntu@95.163.209.195 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
 echo DEPLLLOYMachine
 pwd
 ls
