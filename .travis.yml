@@ -33,7 +33,9 @@ script:
 - go mod vendor
 - golangci-lint run
 - cd cmd
-- ./runFileServiceTest.sh
+- echo TRAIS BULD DIR
+- echo $TRAVIS_BUILD_DIR
+#- ./runFileServiceTest.sh
 #- "./cmd/runMailServiceTest.sh"
 #- "./cmd/runMainApplicationTest.sh"
 #- "./cmd/runUserServiceTest.sh"
@@ -42,6 +44,6 @@ script:
 deploy:
   skip_cleanup: false
   provider: script
-  script: ./cmd/runAllServices.sh;
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR ubuntu@95.163.209.195:/home/ubuntu/go/2020_ExtremeCoders
   on:
     branch: CI
