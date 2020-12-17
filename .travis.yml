@@ -44,6 +44,6 @@ script:
 deploy:
   skip_cleanup: false
   provider: script
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR ubuntu@95.163.209.195:/home/ubuntu/go/2020_ExtremeCoders
+  script: ./.travis/deploy.sh
   on:
     branch: CI
