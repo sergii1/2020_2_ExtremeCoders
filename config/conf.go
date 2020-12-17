@@ -5,7 +5,7 @@ import "time"
 const (
 	DbUser = "postgres"
 	//DbUser = "mark"
-	DbPassword = ""
+	DbPassword = "987654321"
 	//DbPassword = "123456yhn"
 	//DbPassword = "1538"
 	//DbPassword   = "mark"

@@ -1,10 +1,10 @@
 #!/bin/bash
-#chmod ugo+x runFileServiceTest.sh
+#chmod ugo+x runAllServices.sh
 #cd ..
 #pwd
-#go run FileService/cmd/main.go &>FileService.txt &
-#go run MailService/cmd/main.go &>MailService.txt &
-#go run UserService/cmd/main.go &>UserService.txt &
-#go run MainApplication/cmd/main.go &>MainApplication.txt
+echo this is deploy in path
 pwd
-echo FSDLFJD:LFJS:LFJ &> aaaaaaaaaaaaa.txt
+go run ./FileService/cmd/main.go &>FileService.txt &
+go run ./MailService/cmd/main.go &>MailService.txt &
+go run ./UserService/cmd/main.go &>UserService.txt &
+go run ./MainApplication/cmd/main.go &>MainApplication.txt &
