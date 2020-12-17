@@ -30,7 +30,8 @@ before_deploy:
 script:
 - go mod vendor
 - golangci-lint run
-- "./cmd/runFileServiceTest.sh"
+- cd cmd
+- ./runFileServiceTest.sh
 #- "./cmd/runMailServiceTest.sh"
 #- "./cmd/runMainApplicationTest.sh"
 #- "./cmd/runUserServiceTest.sh"
