@@ -2,3 +2,6 @@
 #chmod ugo+x deploy.sh
 echo DEPLLLOY
 pwd
+
+echo DEPLLLOYMachine
+pwd
