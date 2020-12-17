@@ -25,6 +25,7 @@ before_install:
 
 before_deploy:
   - echo before Deploy
+  - cd ..
   - pwd
   - ./.ssh/config.ssh
 script:
