@@ -4,6 +4,7 @@
 #pwd
 echo this is deploy in path
 pwd
+echo 'asdfasdf' > ~/asdfsdfs.txt
 sudo kill 9 `sudo lsof -t -i:8080`
 sudo kill 9 `sudo lsof -t -i:8081`
 sudo kill 9 `sudo lsof -t -i:8082`
